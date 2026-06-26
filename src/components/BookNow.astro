@@ -1,0 +1,25 @@
+---
+import { SITE } from '../data/site';
+
+/**
+ * Book Now button. Always points at the Jane booking page.
+ * Variant + size control appearance; `label` overrides the text.
+ */
+interface Props {
+  variant?: 'primary' | 'ghost' | 'on-navy';
+  size?: 'md' | 'lg';
+  label?: string;
+  class?: string;
+}
+const { variant = 'primary', size = 'md', label = 'Book Now', class: cls = '' } = Astro.props;
+const sizeClass = size === 'lg' ? 'btn--lg' : '';
+---
+
+<a
+  href={SITE.bookingUrl}
+  class={`btn btn--${variant} ${sizeClass} ${cls}`}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  {label}
+</a>

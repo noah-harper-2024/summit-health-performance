@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+const [featured, ...rest] = posts;
+---
+
+<BaseLayout title="Blog" description="Tips on training, recovery, mobility, and longevity from Dr. Seth Graham at Summit Health & Performance.">
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">The Summit Blog</span>
+      <h1>Move better. Train smarter. Stay healthy.</h1>
+      <p class="lead">
+        Practical advice on training, recovery, and longevity from Dr. Seth Graham and the
+        Summit Health &amp; Performance team.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {posts.length === 0 ? (
+        <p class="empty">New articles are on the way — check back soon.</p>
+      ) : (
+        <>
+          {featured && (
+            <a href={`/blog/${featured.id}/`} class="featured card">
+              <div class="featured-body">
+                <span class="post-date">{fmt(featured.data.pubDate)}</span>
+                <h2>{featured.data.title}</h2>
+                <p>{featured.data.description}</p>
+                <span class="post-more">Read more →</span>
+              </div>
+            </a>
+          )}
+
+          {rest.length > 0 && (
+            <div class="grid grid--3 post-grid">
+              {rest.map((post) => (
+                <a href={`/blog/${post.id}/`} class="card post-card">
+                  <span class="post-date">{fmt(post.data.pubDate)}</span>
+                  <h3>{post.data.title}</h3>
+                  <p>{post.data.description}</p>
+                  {post.data.tags.length > 0 && (
+                    <div class="tags">
+                      {post.data.tags.map((t) => <span class="tag">{t}</span>)}
+                    </div>
+                  )}
+                </a>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-block: clamp(3rem, 7vw, 5rem) clamp(1rem, 3vw, 2rem);
+    background:
+      radial-gradient(900px 380px at 85% -20%, var(--bg-tint), transparent 60%),
+      var(--white);
+  }
+  .page-hero .lead { margin-top: 0.5rem; }
+
+  .empty { color: var(--muted); font-size: 1.1rem; }
+
+  .featured {
+    display: block;
+    margin-bottom: 2.5rem;
+    background: linear-gradient(140deg, var(--bg-soft), var(--bg-tint));
+    border: 1px solid var(--line);
+  }
+  .featured-body { max-width: 60ch; }
+  .featured h2 { margin: 0.6rem 0; }
+  .featured p { color: var(--muted); font-size: 1.08rem; }
+
+  .post-date {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--blue-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .post-more { font-family: var(--font-head); font-weight: 600; color: var(--navy); }
+
+  .post-card { display: block; }
+  .post-card h3 { margin: 0.5rem 0 0.6rem; }
+  .post-card p { color: var(--muted); }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+  .tag {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--blue);
+    background: var(--bg-tint);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+  }
+</style>

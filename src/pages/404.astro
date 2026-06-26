@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BookNow from '../components/BookNow.astro';
+---
+
+<BaseLayout title="Page Not Found">
+  <section class="section text-center notfound">
+    <div class="container">
+      <span class="eyebrow">404</span>
+      <h1>We couldn't find that page</h1>
+      <p class="lead mx-auto">
+        The page may have moved or never existed. Let's get you back on track.
+      </p>
+      <div class="actions">
+        <a href="/" class="btn btn--primary btn--lg">Back to Home</a>
+        <BookNow variant="ghost" size="lg" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound { padding-block: clamp(4rem, 10vw, 7rem); }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; margin-top: 2rem; }
+</style>

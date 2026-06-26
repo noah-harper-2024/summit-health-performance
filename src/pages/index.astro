@@ -1,0 +1,398 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BookNow from '../components/BookNow.astro';
+import { SITE } from '../data/site';
+import { getCollection } from 'astro:content';
+
+const services = [
+  {
+    title: 'Sports Chiropractic',
+    body: 'Hands-on adjustments and soft-tissue work that restore mobility and keep you moving the way your sport demands.',
+    icon: 'spine',
+  },
+  {
+    title: 'Athletic Rehabilitation',
+    body: 'Progressive, individualized rehab that takes you from injured to confident — and back to full training.',
+    icon: 'rehab',
+  },
+  {
+    title: 'Strength & Performance',
+    body: 'Movement screening and programming that close the gaps holding back your strength, speed, and power.',
+    icon: 'strength',
+  },
+  {
+    title: 'Chronic Injury Care',
+    body: 'A root-cause approach to nagging, recurring pain so you can finally train without flare-ups.',
+    icon: 'shield',
+  },
+  {
+    title: 'Youth Athlete Care',
+    body: 'Keeping growing athletes healthy, durable, and developing good movement habits for the long game.',
+    icon: 'youth',
+  },
+  {
+    title: 'Longevity & Wellness',
+    body: 'Stay strong and mobile for decades. Care built for active adults who plan to keep going.',
+    icon: 'mountain',
+  },
+];
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+---
+
+<BaseLayout>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">Sports Chiropractic · Huntsville, AL</span>
+        <h1>Reach your <span class="accent">summit.</span></h1>
+        <p class="lead">
+          {SITE.tagline} At Summit Health &amp; Performance, Dr. Seth Graham fixes the
+          root cause of pain so you can move, train, and compete at your best.
+        </p>
+        <div class="hero-actions">
+          <BookNow size="lg" />
+          <a href="/services/" class="btn btn--ghost btn--lg">Explore Services</a>
+        </div>
+        <ul class="hero-points">
+          <li>One-on-one, personalized care</li>
+          <li>Built for active adults &amp; youth athletes</li>
+          <li>Easy online booking</li>
+        </ul>
+      </div>
+      <div class="hero-art">
+        <div class="hero-photo-card">
+          <img
+            src="/images/photos/clinic-treatment.jpg"
+            alt="Dr. Seth Graham performing a chiropractic adjustment at Summit Health & Performance"
+            width="306"
+            height="409"
+            fetchpriority="high"
+          />
+          <div class="hero-badge">
+            <strong>Move better.</strong>
+            <span>Perform higher. Train without limits.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section section--soft" id="services">
+    <div class="container">
+      <div class="section-head text-center mx-auto">
+        <span class="eyebrow">What We Do</span>
+        <h2>Care that meets you where you train</h2>
+        <p class="lead mx-auto">
+          Whether you're chasing a PR, returning from injury, or just want to keep
+          doing what you love pain-free — we build a plan around your goals.
+        </p>
+      </div>
+      <div class="grid grid--3 services-grid">
+        {services.map((s) => (
+          <article class="card service-card">
+            <div class={`svc-icon svc-icon--${s.icon}`} aria-hidden="true"></div>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </article>
+        ))}
+      </div>
+      <div class="text-center" style="margin-top:2.5rem">
+        <a href="/services/" class="btn btn--ghost">See all services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / DOCTOR -->
+  <section class="section">
+    <div class="container about-split">
+      <div class="about-media">
+        <figure class="doctor-photo">
+          <img
+            src="/images/photos/dr-graham-headshot.jpg"
+            alt="Dr. Seth Graham, DC, CCSP"
+            width="431"
+            height="618"
+          />
+          <figcaption>
+            <span>Dr. Seth Graham</span>
+            <small>DC, CCSP · Founder &amp; Sports Chiropractor</small>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="about-copy">
+        <span class="eyebrow">Meet Your Doctor</span>
+        <h2>A different kind of chiropractic experience</h2>
+        <p>
+          Dr. Seth Graham is an Alabama native and a sports chiropractor who has worked
+          with everyone from CrossFit Games athletes and competitive gymnasts to golfers,
+          baseball players, and weekend warriors. He earned his undergraduate degree in
+          Exercise Science from the University of Montevallo and his Doctor of Chiropractic
+          from Logan University.
+        </p>
+        <p>
+          His approach is simple: find the real source of the problem, treat it with skilled
+          hands-on care and smart rehab, and give you the tools to stay healthy long after you
+          leave the table.
+        </p>
+        <div class="hero-actions">
+          <a href="/about/" class="btn btn--primary">More About Summit</a>
+          <BookNow variant="ghost" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUE / CTA BAND -->
+  <section class="section section--navy">
+    <div class="container value-band">
+      <div>
+        <span class="eyebrow">Why Summit</span>
+        <h2>Your goals set the direction. We help you get there.</h2>
+        <p class="lead">
+          No cookie-cutter plans, no endless visits with no end in sight — just focused,
+          one-on-one care designed to get you back to the things you love.
+        </p>
+      </div>
+      <div class="value-stats">
+        <div class="stat"><strong>1:1</strong><span>Personalized, doctor-led visits</span></div>
+        <div class="stat"><strong>Root</strong><span>Cause-focused, not just symptoms</span></div>
+        <div class="stat"><strong>All</strong><span>Levels — youth to elite athletes</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG PREVIEW -->
+  {posts.length > 0 && (
+    <section class="section section--soft">
+      <div class="container">
+        <div class="blog-head">
+          <div>
+            <span class="eyebrow">From the Blog</span>
+            <h2>Tips on training, recovery &amp; longevity</h2>
+          </div>
+          <a href="/blog/" class="btn btn--ghost">View all posts</a>
+        </div>
+        <div class="grid grid--3">
+          {posts.map((post) => (
+            <a href={`/blog/${post.id}/`} class="card post-card">
+              <span class="post-date">{fmt(post.data.pubDate)}</span>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+              <span class="post-more">Read more →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- FINAL CTA -->
+  <section class="section final-cta">
+    <div class="container text-center">
+      <h2>Let's get you back to your best.</h2>
+      <p class="lead mx-auto">
+        Booking online is fast and easy. Pick a time that works for you and we'll take care
+        of the rest.
+      </p>
+      <BookNow size="lg" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* HERO */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(1100px 480px at 88% -10%, var(--bg-tint), transparent 60%),
+      linear-gradient(180deg, var(--white), var(--bg-soft));
+    padding-block: clamp(3rem, 7vw, 5.5rem);
+  }
+  .hero-inner {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+  .hero-copy .accent { color: var(--blue-bright); }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-top: 1.8rem;
+  }
+  .hero-points {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.6rem;
+  }
+  .hero-points li {
+    position: relative;
+    padding-left: 1.6rem;
+    font-weight: 500;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .hero-points li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.55em;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--blue-bright);
+  }
+  .hero-art { display: flex; justify-content: center; }
+  .hero-photo-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 0.9rem;
+    max-width: 360px;
+    width: 100%;
+    text-align: center;
+  }
+  .hero-photo-card img {
+    width: 100%;
+    height: auto;
+    border-radius: calc(var(--radius-lg) - 6px);
+    display: block;
+    object-fit: cover;
+  }
+  .hero-badge {
+    padding: 1.3rem 1rem 0.8rem;
+  }
+  .hero-badge strong {
+    display: block;
+    font-family: var(--font-head);
+    color: var(--navy);
+    font-size: 1.25rem;
+  }
+  .hero-badge span { color: var(--muted); font-size: 0.95rem; }
+
+  @media (min-width: 920px) {
+    .hero-inner { grid-template-columns: 1.15fr 0.85fr; gap: 4rem; }
+  }
+
+  /* SECTION HEADS */
+  .section-head { max-width: 56ch; margin-bottom: 3rem; }
+
+  /* SERVICES */
+  .service-card { text-align: left; }
+  .svc-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: var(--bg-tint);
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+  .svc-icon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--blue-bright);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: 26px;
+    mask-size: 26px;
+    /* simple mountain glyph for all; distinct hue per type via tint */
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 20 6-12 4 7 3-5 5 10z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 20 6-12 4 7 3-5 5 10z'/%3E%3C/svg%3E");
+  }
+
+  /* ABOUT */
+  .about-split {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  .doctor-photo {
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    background: var(--navy);
+    position: relative;
+  }
+  .doctor-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 431 / 540;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .doctor-photo figcaption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 1.6rem 1.4rem 1.1rem;
+    background: linear-gradient(to top, rgba(22, 35, 77, 0.92), rgba(22, 35, 77, 0));
+    color: var(--white);
+    text-align: center;
+  }
+  .doctor-photo figcaption span { display: block; font-family: var(--font-head); font-weight: 700; font-size: 1.3rem; }
+  .doctor-photo figcaption small { color: var(--steel-light); }
+  @media (min-width: 860px) {
+    .about-split { grid-template-columns: 0.85fr 1.15fr; gap: 3.5rem; }
+  }
+
+  /* VALUE BAND */
+  .value-band { display: grid; gap: 2.5rem; align-items: center; }
+  .value-stats { display: grid; gap: 1.2rem; }
+  .stat {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1.1rem 1.4rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: var(--radius);
+  }
+  .stat strong {
+    font-family: var(--font-head);
+    font-size: 1.6rem;
+    color: var(--white);
+    min-width: 3.2rem;
+  }
+  .stat span { color: rgba(255, 255, 255, 0.8); }
+  @media (min-width: 880px) {
+    .value-band { grid-template-columns: 1.2fr 1fr; gap: 4rem; }
+  }
+
+  /* BLOG */
+  .blog-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2.5rem;
+  }
+  .post-card { display: block; }
+  .post-date {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--blue-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .post-card h3 { margin: 0.5rem 0 0.6rem; }
+  .post-card p { color: var(--muted); }
+  .post-more { font-family: var(--font-head); font-weight: 600; color: var(--navy); font-size: 0.92rem; }
+
+  /* FINAL CTA */
+  .final-cta { background: var(--bg-tint); }
+  .final-cta .lead { margin-bottom: 2rem; }
+</style>

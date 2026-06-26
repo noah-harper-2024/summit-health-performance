@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BookNow from '../components/BookNow.astro';
+
+const services = [
+  {
+    title: 'Sports Chiropractic',
+    body: 'Skilled, hands-on adjustments and soft-tissue work that restore joint mobility, reduce pain, and keep your body moving the way your sport or training demands.',
+    for: 'Athletes & active adults dealing with stiffness, restriction, or pain.',
+  },
+  {
+    title: 'Athletic Rehabilitation',
+    body: 'A progressive, individualized rehab plan that bridges the gap between injury and full return-to-play. We rebuild strength, control, and confidence step by step.',
+    for: 'Anyone recovering from an injury and wanting to return stronger.',
+  },
+  {
+    title: 'Strength & Performance',
+    body: 'Movement screening and targeted programming that uncover the limitations holding back your strength, speed, and power — then close those gaps.',
+    for: 'Lifters, runners, and competitors chasing the next level.',
+  },
+  {
+    title: 'Chronic & Nagging Injuries',
+    body: 'A root-cause approach to the aches that keep coming back. We find why the problem persists and build a plan so you can finally train without flare-ups.',
+    for: 'People tired of recurring pain that never fully resolves.',
+  },
+  {
+    title: 'Youth Athlete Care',
+    body: 'Care that keeps growing athletes healthy and durable, addresses growth-related aches, and builds the movement habits that protect them for years to come.',
+    for: 'Young athletes and the parents who want them healthy long-term.',
+  },
+  {
+    title: 'Longevity & Wellness',
+    body: 'Stay strong, mobile, and resilient for decades. Ongoing care designed for active adults who have no intention of slowing down.',
+    for: 'Active adults who plan to keep moving for life.',
+  },
+];
+
+const steps = [
+  { n: '01', title: 'Book online', body: 'Pick a time that works for you in just a couple of minutes — no phone tag required.' },
+  { n: '02', title: 'Get assessed', body: 'A thorough, one-on-one evaluation to find the real source of your problem.' },
+  { n: '03', title: 'Treat & train', body: 'Hands-on care plus a clear plan to get you moving, training, and feeling better.' },
+];
+---
+
+<BaseLayout title="Services" description="Sports chiropractic, athletic rehab, strength & performance care, youth athlete care, and longevity & wellness at Summit Health & Performance in Huntsville, AL.">
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Our Services</span>
+      <h1>Care built around how you move</h1>
+      <p class="lead">
+        Every body and every goal is different. We combine hands-on chiropractic care with
+        smart rehab and performance work to meet you exactly where you are — and take you where
+        you want to go.
+      </p>
+      <div class="hero-actions"><BookNow size="lg" /></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--2 svc-grid">
+        {services.map((s) => (
+          <article class="card svc-detail">
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+            <p class="svc-for"><strong>Great for:</strong> {s.for}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="section-head text-center mx-auto">
+        <span class="eyebrow">How It Works</span>
+        <h2>Getting started is simple</h2>
+      </div>
+      <div class="grid grid--3">
+        {steps.map((s) => (
+          <article class="step-card">
+            <span class="step-n">{s.n}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--navy">
+    <div class="container text-center cta-narrow">
+      <h2>Not sure which service is right for you?</h2>
+      <p class="lead mx-auto">
+        Book a visit and we'll figure it out together. Your plan is always built around your goals.
+      </p>
+      <BookNow variant="on-navy" size="lg" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-block: clamp(3rem, 7vw, 5rem) clamp(1rem, 3vw, 2rem);
+    background:
+      radial-gradient(900px 380px at 85% -20%, var(--bg-tint), transparent 60%),
+      var(--white);
+  }
+  .page-hero .lead { margin-top: 0.5rem; }
+  .hero-actions { margin-top: 1.8rem; }
+
+  .svc-detail h3 { color: var(--navy); }
+  .svc-for {
+    margin: 1rem 0 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .svc-for strong { color: var(--blue); }
+
+  .section-head { max-width: 48ch; margin-bottom: 2.5rem; }
+  .step-card { padding: 0.5rem; }
+  .step-n {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 2.4rem;
+    color: var(--steel-light);
+    line-height: 1;
+  }
+  .step-card h3 { margin: 0.6rem 0 0.5rem; }
+  .step-card p { color: var(--muted); }
+
+  .cta-narrow { max-width: 54ch; margin-inline: auto; }
+  .cta-narrow .lead { margin-bottom: 1.8rem; }
+</style>

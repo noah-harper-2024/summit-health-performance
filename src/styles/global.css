@@ -1,0 +1,226 @@
+/* ============================================================
+   Summit Health & Performance — Design System
+   Clean whites + blues, inviting and modern.
+   ============================================================ */
+
+:root {
+  /* Brand palette (pulled from the logo) */
+  --navy: #16234d;          /* deep navy — SUMMIT wordmark */
+  --navy-700: #1d2f63;
+  --navy-600: #27407f;
+  --blue: #2f4a8a;          /* primary accent */
+  --blue-bright: #3a64c0;   /* interactive / links / hover */
+  --steel: #8c98ac;         /* mountains + swoosh gray */
+  --steel-light: #c6cedb;
+
+  --ink: #1b2333;           /* body text */
+  --muted: #5b667a;         /* secondary text */
+
+  --bg: #ffffff;
+  --bg-soft: #f5f8fc;       /* off-white section background */
+  --bg-tint: #eef3fa;       /* light blue tint */
+  --line: #e3e9f2;          /* hairline borders */
+
+  --white: #ffffff;
+
+  /* Typography */
+  --font-head: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Layout */
+  --maxw: 1140px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --shadow-sm: 0 1px 3px rgba(22, 35, 77, 0.06), 0 1px 2px rgba(22, 35, 77, 0.04);
+  --shadow: 0 10px 30px -12px rgba(22, 35, 77, 0.18);
+  --shadow-lg: 0 24px 60px -24px rgba(22, 35, 77, 0.30);
+  --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.65;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-head);
+  color: var(--navy);
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); }
+h2 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); }
+h3 { font-size: clamp(1.2rem, 2vw, 1.45rem); }
+
+p { margin: 0 0 1.1em; }
+
+a {
+  color: var(--blue-bright);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+a:hover { color: var(--navy); }
+
+img { max-width: 100%; display: block; }
+
+ul, ol { margin: 0 0 1.1em; padding-left: 1.3em; }
+li { margin-bottom: 0.4em; }
+
+/* ---------- Layout helpers ---------- */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.section {
+  padding-block: clamp(3.5rem, 8vw, 6rem);
+}
+.section--soft { background: var(--bg-soft); }
+.section--navy {
+  background: linear-gradient(160deg, var(--navy) 0%, var(--navy-700) 55%, var(--blue) 130%);
+  color: var(--white);
+}
+.section--navy h1,
+.section--navy h2,
+.section--navy h3 { color: var(--white); }
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue-bright);
+  margin-bottom: 0.85rem;
+}
+.section--navy .eyebrow { color: var(--steel-light); }
+
+.lead {
+  font-size: clamp(1.05rem, 1.6vw, 1.22rem);
+  color: var(--muted);
+  max-width: 60ch;
+}
+.section--navy .lead { color: rgba(255, 255, 255, 0.82); }
+
+.text-center { text-align: center; }
+.mx-auto { margin-inline: auto; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.98rem;
+  letter-spacing: 0.01em;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.btn--primary {
+  background: var(--blue-bright);
+  color: var(--white);
+  box-shadow: 0 8px 20px -8px rgba(58, 100, 192, 0.7);
+}
+.btn--primary:hover {
+  background: var(--navy);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px -10px rgba(22, 35, 77, 0.6);
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--navy);
+  border-color: var(--steel-light);
+}
+.btn--ghost:hover {
+  border-color: var(--blue-bright);
+  color: var(--blue-bright);
+}
+.btn--on-navy {
+  background: var(--white);
+  color: var(--navy);
+}
+.btn--on-navy:hover {
+  background: var(--bg-tint);
+  color: var(--navy);
+  transform: translateY(-2px);
+}
+.btn--lg { padding: 1.05rem 2.1rem; font-size: 1.05rem; }
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+  height: 100%;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- Grid ---------- */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+@media (min-width: 640px) {
+  .grid--2 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 860px) {
+  .grid--3 { grid-template-columns: repeat(3, 1fr); }
+  .grid--2 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------- Utilities ---------- */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue-bright);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
