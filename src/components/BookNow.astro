@@ -7,12 +7,12 @@ import { SITE } from '../data/site';
  */
 interface Props {
   variant?: 'primary' | 'ghost' | 'on-navy';
-  size?: 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg';
   label?: string;
   class?: string;
 }
 const { variant = 'primary', size = 'md', label = 'Book Now', class: cls = '' } = Astro.props;
-const sizeClass = size === 'lg' ? 'btn--lg' : '';
+const sizeClass = size === 'lg' ? 'btn--lg' : size === 'sm' ? 'btn--sm' : '';
 ---
 
 <a

@@ -1,73 +1,53 @@
 ---
 import { SITE, NAV_LINKS } from '../data/site';
-import BookNow from './BookNow.astro';
 
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <div class="container footer-grid">
+  <div class="footer-grid">
     <div class="footer-brand">
-      <img src="/images/logo.png" alt={SITE.name} width="210" height="78" class="footer-logo" />
-      <p class="footer-tagline">{SITE.tagline}</p>
-      <a
-        href={SITE.social.instagram}
-        class="ig-link"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`Follow Summit Health & Performance on Instagram (${SITE.social.instagramHandle})`}
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" stroke-width="1.7"/>
-          <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.7"/>
-          <circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"/>
-        </svg>
-        <span>{SITE.social.instagramHandle}</span>
+      <div class="footer-name">{SITE.name}</div>
+      <p>Sports chiropractic for active adults and youth athletes in Huntsville, AL — fixing the root cause, not just the symptom.</p>
+      <a href={SITE.social.instagram} target="_blank" rel="noopener noreferrer" class="ig-link">
+        {SITE.social.instagramHandle}
       </a>
     </div>
 
     <div class="footer-col">
-      <h4>Explore</h4>
-      <ul>
-        {NAV_LINKS.map((link) => (
-          <li><a href={link.href}>{link.label}</a></li>
-        ))}
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4>Visit Us</h4>
-      <ul class="contact-list">
-        <li>
-          <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer">
-            {SITE.address.street}<br />{SITE.address.city}, {SITE.address.state} {SITE.address.zip}
-          </a>
-        </li>
-        <li><a href={SITE.phoneHref}>{SITE.phone}</a></li>
-        <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
-      </ul>
+      <h4>Visit</h4>
+      <p class="addr">
+        <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer">
+          {SITE.address.street}<br />{SITE.address.city}, {SITE.address.state} {SITE.address.zip}
+        </a>
+      </p>
+      <a href={SITE.phoneHref} class="phone">{SITE.phone}</a>
+      <a href={`mailto:${SITE.email}`} class="email">{SITE.email}</a>
     </div>
 
     <div class="footer-col">
       <h4>Hours</h4>
-      <ul class="hours-list">
+      <ul class="hours">
         {SITE.hours.map((h) => (
           <li><span>{h.days}</span><span>{h.time}</span></li>
         ))}
       </ul>
     </div>
 
-    <div class="footer-cta-col">
-      <h4>Ready to feel better?</h4>
-      <p>Book your first visit online in under two minutes.</p>
-      <BookNow size="md" />
+    <div class="footer-col">
+      <h4>Site</h4>
+      <ul class="links">
+        {NAV_LINKS.map((link) => (
+          <li><a href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
     </div>
   </div>
 
   <div class="footer-bottom">
-    <div class="container">
-      <p>© {year} {SITE.name}. All rights reserved.</p>
-      <p class="credit">Built for movement &amp; longevity in Huntsville, AL.</p>
+    <div class="footer-bottom-inner">
+      <span>© {year} {SITE.name}. All rights reserved.</span>
+      <span>Huntsville, Alabama</span>
     </div>
   </div>
 </footer>
@@ -75,87 +55,72 @@ const year = new Date().getFullYear();
 <style>
   .site-footer {
     background: var(--navy);
-    color: rgba(255, 255, 255, 0.82);
-    padding-top: clamp(3rem, 6vw, 4.5rem);
+    color: var(--bg);
+    font-family: var(--font-body);
   }
   .footer-grid {
+    max-width: var(--maxw);
+    margin-inline: auto;
+    padding: 4.5rem 2rem 2.5rem;
     display: grid;
     grid-template-columns: 1fr;
     gap: 2.5rem;
-    padding-bottom: 3rem;
   }
-  .footer-logo {
-    height: 60px;
-    width: auto;
-    background: var(--white);
-    padding: 10px 16px;
-    border-radius: 12px;
-    margin-bottom: 1.1rem;
-  }
-  .footer-tagline {
-    max-width: 34ch;
-    color: rgba(255, 255, 255, 0.72);
-    font-size: 0.97rem;
-  }
-  .ig-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    color: var(--white);
-    font-weight: 600;
+  .footer-name {
     font-family: var(--font-head);
-    font-size: 0.95rem;
+    font-weight: 800;
+    font-size: 1.35rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.9rem;
   }
-  .ig-link:hover { color: var(--steel-light); }
+  .footer-brand p {
+    color: #a9b2c8;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    max-width: 34ch;
+    margin: 0 0 1.2rem;
+  }
+  .ig-link { color: var(--steel-light); font-size: 0.9rem; font-weight: 500; }
+  .ig-link:hover { color: var(--white); }
 
-  .footer-col h4,
-  .footer-cta-col h4 {
-    color: var(--white);
-    font-size: 0.82rem;
-    letter-spacing: 0.12em;
+  .footer-col h4 {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    color: var(--steel);
+    margin: 0 0 1.1rem;
   }
-  .footer-col ul { list-style: none; padding: 0; margin: 0; }
-  .footer-col li { margin-bottom: 0.6rem; }
-  .footer-col a { color: rgba(255, 255, 255, 0.82); }
+  .footer-col a { color: var(--steel-light); font-size: 0.92rem; }
   .footer-col a:hover { color: var(--white); }
+  .addr { margin: 0 0 0.9rem; line-height: 1.7; }
+  .footer-col .phone { display: block; color: var(--white); font-weight: 600; margin-bottom: 0.4rem; }
 
-  .contact-list li { line-height: 1.5; }
-  .hours-list li {
+  .hours, .links { list-style: none; padding: 0; margin: 0; }
+  .hours li {
+    display: flex; justify-content: space-between; gap: 1rem;
+    font-size: 0.88rem; color: var(--steel-light); padding: 0.15rem 0;
+  }
+  .hours span:first-child { color: #a9b2c8; }
+  .links li { margin-bottom: 0.6rem; }
+
+  .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); }
+  .footer-bottom-inner {
+    max-width: var(--maxw);
+    margin-inline: auto;
+    padding: 1.4rem 2rem;
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
-    font-size: 0.92rem;
-  }
-  .hours-list span:first-child { color: rgba(255, 255, 255, 0.7); }
-
-  .footer-cta-col p {
-    color: rgba(255, 255, 255, 0.72);
-    font-size: 0.95rem;
-    max-width: 28ch;
-  }
-
-  .footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    padding-block: 1.4rem;
-  }
-  .footer-bottom .container {
-    display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.5rem;
+    gap: 0.6rem;
   }
-  .footer-bottom p {
-    margin: 0;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
-  }
+  .footer-bottom-inner span { font-size: 0.78rem; color: #7783a0; }
 
-  @media (min-width: 680px) {
+  @media (min-width: 560px) {
     .footer-grid { grid-template-columns: repeat(2, 1fr); }
   }
-  @media (min-width: 1000px) {
-    .footer-grid { grid-template-columns: 1.6fr 1fr 1.2fr 1.2fr 1.4fr; }
+  @media (min-width: 960px) {
+    .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 3rem; }
   }
 </style>
