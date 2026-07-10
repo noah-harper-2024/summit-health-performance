@@ -8,100 +8,71 @@ interface Props {
   post: CollectionEntry<'blog'>;
 }
 const { post } = Astro.props;
-const { title, description, pubDate, updatedDate, author, heroImage, tags } = post.data;
+const { title, description, pubDate, updatedDate, author, heroImage } = post.data;
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 ---
 
 <BaseLayout title={title} description={description} image={heroImage?.src}>
   <article class="post">
-    <header class="post-header">
-      <div class="container post-header-inner">
-        <a href="/blog/" class="back-link">← All articles</a>
-        {tags.length > 0 && (
-          <div class="tags">{tags.map((t) => <span class="tag">{t}</span>)}</div>
-        )}
-        <h1>{title}</h1>
-        <p class="post-meta">
-          By {author} · <time datetime={pubDate.toISOString()}>{fmt(pubDate)}</time>
-          {updatedDate && <> · Updated {fmt(updatedDate)}</>}
-        </p>
-      </div>
-    </header>
+    <a href="/blog/" class="back">← Back to Journal</a>
+    <div class="meta">
+      <time datetime={pubDate.toISOString()}>{fmt(pubDate)}</time> · {author}
+      {updatedDate && <> · Updated {fmt(updatedDate)}</>}
+    </div>
+    <h1>{title}</h1>
 
     {heroImage && (
-      <div class="container">
-        <Image src={heroImage} alt={title} class="post-hero" widths={[480, 800, 1200]} sizes="(max-width: 900px) 100vw, 900px" />
-      </div>
+      <figure class="hero">
+        <Image src={heroImage} alt={title} widths={[480, 760]} sizes="(max-width: 800px) 100vw, 760px" />
+      </figure>
     )}
 
-    <div class="container">
-      <div class="post-body">
-        <slot />
-      </div>
+    <div class="prose">
+      <slot />
+    </div>
 
-      <div class="post-cta">
-        <h3>Want help putting this into practice?</h3>
-        <p>Book a visit with Dr. Seth Graham and get a plan built around your goals.</p>
-        <BookNow size="lg" />
-      </div>
+    <div class="post-cta">
+      <BookNow />
     </div>
   </article>
 </BaseLayout>
 
 <style>
-  .post-header { padding-block: clamp(2.5rem, 6vw, 4rem) 1.5rem; background: var(--bg-soft); }
-  .post-header-inner { max-width: 760px; margin-inline: auto; }
-  .back-link { font-family: var(--font-head); font-weight: 600; font-size: 0.9rem; }
-  .post-header h1 { margin: 1rem 0 0.8rem; }
-  .post-meta { color: var(--muted); margin: 0; font-size: 0.95rem; }
+  .post { max-width: 760px; margin: 0 auto; padding: 5.5rem 2rem 7.5rem; }
+  .back {
+    font-family: var(--font-body); font-weight: 600; font-size: 14px;
+    color: var(--muted); display: inline-block; margin-bottom: 2rem;
+  }
+  .back:hover { color: var(--blue-bright); }
+  .meta {
+    font-family: var(--font-head); font-weight: 600; font-size: 12.5px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--steel); margin-bottom: 1rem;
+  }
+  .post h1 {
+    font-family: var(--font-head); font-weight: 800;
+    font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.1;
+    letter-spacing: -0.02em; color: var(--navy); margin: 0 0 2.75rem;
+  }
+  .hero { margin: 0 0 2.75rem; background: var(--bg-soft); padding: 0.75rem; border: 1px solid var(--line); }
+  .hero :global(img) { width: 100%; height: auto; display: block; }
 
-  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
-  .tag {
-    font-size: 0.74rem; font-weight: 600; color: var(--blue);
-    background: var(--bg-tint); padding: 0.2rem 0.6rem; border-radius: 999px;
+  .prose :global(p) { font-size: 18px; line-height: 1.75; color: #333c4d; margin: 0 0 1.5rem; }
+  .prose :global(h2) {
+    font-family: var(--font-head); font-weight: 700; font-size: 26px;
+    color: var(--navy); margin: 3rem 0 1.1rem; letter-spacing: -0.01em;
   }
+  .prose :global(h3) { font-family: var(--font-head); font-weight: 700; font-size: 20px; color: var(--navy); margin: 2rem 0 0.8rem; }
+  .prose :global(ul), .prose :global(ol) { font-size: 18px; line-height: 1.75; color: #333c4d; margin: 0 0 1.5rem; padding-left: 1.3rem; }
+  .prose :global(blockquote) {
+    margin: 0 0 1.5rem; padding: 0.9rem 1.4rem;
+    border-left: 3px solid var(--blue-bright); background: var(--bg-soft);
+    color: var(--muted); font-size: 16px; font-style: italic;
+  }
+  .prose :global(a) { color: var(--blue-bright); text-decoration: underline; }
+  .prose :global(a:hover) { color: var(--blue); }
+  .prose :global(hr) { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
+  .prose :global(code) { background: var(--bg-soft); padding: 0.1em 0.4em; border-radius: 2px; font-size: 0.92em; }
 
-  .post-hero {
-    width: 100%;
-    max-width: 900px;
-    margin: 2rem auto 0;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow);
-    height: auto;
-  }
-
-  .post-body {
-    max-width: 720px;
-    margin: 2.5rem auto 0;
-    font-size: 1.1rem;
-  }
-  .post-body :global(h2) { margin-top: 2.2rem; }
-  .post-body :global(h3) { margin-top: 1.8rem; }
-  .post-body :global(img) { border-radius: var(--radius); margin: 1.5rem 0; box-shadow: var(--shadow-sm); }
-  .post-body :global(blockquote) {
-    border-left: 4px solid var(--blue-bright);
-    margin: 1.5rem 0;
-    padding: 0.4rem 0 0.4rem 1.4rem;
-    color: var(--muted);
-    font-style: italic;
-  }
-  .post-body :global(a) { text-decoration: underline; }
-  .post-body :global(code) {
-    background: var(--bg-tint);
-    padding: 0.1em 0.4em;
-    border-radius: 6px;
-    font-size: 0.9em;
-  }
-  .post-body :global(hr) { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
-
-  .post-cta {
-    max-width: 720px;
-    margin: 3.5rem auto 4.5rem;
-    padding: 2.2rem;
-    background: var(--bg-tint);
-    border-radius: var(--radius-lg);
-    text-align: center;
-  }
-  .post-cta p { color: var(--muted); margin-bottom: 1.4rem; }
+  .post-cta { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--line); }
 </style>

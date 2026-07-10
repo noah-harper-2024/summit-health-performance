@@ -4,66 +4,58 @@ import BookNow from '../components/BookNow.astro';
 import { SITE } from '../data/site';
 ---
 
-<BaseLayout title="Contact" description="Visit Summit Health & Performance at 3070 Leeman Ferry Rd SW, Huntsville, AL. Call 256-947-2660 or book your appointment online.">
-  <section class="page-hero">
-    <div class="container">
-      <span class="eyebrow">Get in Touch</span>
-      <h1>Visit Summit Health &amp; Performance</h1>
-      <p class="lead">
-        We're located in Huntsville, AL and ready to help you move better. Book online any time,
-        or reach out with questions.
-      </p>
-    </div>
-  </section>
+<BaseLayout title="Contact" description="Visit Summit Health & Performance at 3070 Leeman Ferry Rd SW, Huntsville, AL. Call 256-947-2660, send a message, or book online.">
+  <section class="contact">
+    <div class="contact-info">
+      <div class="eyebrow">Contact</div>
+      <h1>Let's get you moving again.</h1>
+      <p class="lead">Booking online is the fastest way in. For anything else, reach us directly below.</p>
 
-  <section class="section">
-    <div class="container contact-grid">
-      <div class="contact-info">
-        <div class="info-block">
-          <h3>Location</h3>
-          <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer">
-            {SITE.address.street}<br />{SITE.address.city}, {SITE.address.state} {SITE.address.zip}
-          </a>
+      <div class="details">
+        <div class="detail">
+          <div class="label">Address</div>
+          <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer">{SITE.address.full}</a>
         </div>
-        <div class="info-block">
-          <h3>Phone</h3>
+        <div class="detail">
+          <div class="label">Phone</div>
           <a href={SITE.phoneHref}>{SITE.phone}</a>
         </div>
-        <div class="info-block">
-          <h3>Email</h3>
+        <div class="detail">
+          <div class="label">Email</div>
           <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
         </div>
-        <div class="info-block">
-          <h3>Instagram</h3>
-          <a href={SITE.social.instagram} target="_blank" rel="noopener noreferrer">
-            {SITE.social.instagramHandle}
-          </a>
-        </div>
-        <div class="info-block">
-          <h3>Hours</h3>
-          <ul class="hours">
+        <div class="detail">
+          <div class="label">Hours</div>
+          <div class="hours">
             {SITE.hours.map((h) => (
-              <li><span>{h.days}</span><span>{h.time}</span></li>
+              <div class="hour-row"><span>{h.days}</span><span>{h.time}</span></div>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
 
-      <aside class="book-panel">
-        <h2>Book your appointment</h2>
-        <p>
-          The fastest way to get started is to book online. Choose a time that fits your schedule
-          and we'll take it from there.
-        </p>
-        <BookNow size="lg" />
-        <p class="panel-note">
-          Prefer to talk first? Call us at <a href={SITE.phoneHref}>{SITE.phone}</a>.
-        </p>
-      </aside>
+      <BookNow />
+    </div>
+
+    <div class="form-panel">
+      <h2>Send a message</h2>
+      <p class="form-note">Not urgent, or want to ask before booking? Send a note and we'll get back to you.</p>
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact-form">
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hp"><label>Don't fill this out: <input name="bot-field" /></label></p>
+        <div class="two">
+          <input class="field" type="text" name="first-name" placeholder="First name" autocomplete="given-name" required />
+          <input class="field" type="text" name="last-name" placeholder="Last name" autocomplete="family-name" required />
+        </div>
+        <input class="field" type="email" name="email" placeholder="Email" autocomplete="email" required />
+        <input class="field" type="tel" name="phone" placeholder="Phone" autocomplete="tel" />
+        <textarea class="field" name="message" placeholder="What's going on?" rows="4" required></textarea>
+        <button type="submit" class="send">Send message</button>
+      </form>
     </div>
   </section>
 
-  <section class="map-section" aria-label="Map">
+  <section class="map-wrap">
     <iframe
       title={`Map to ${SITE.name}`}
       src="https://www.google.com/maps?q=3070+Leeman+Ferry+Rd+SW,+Huntsville,+AL&output=embed"
@@ -74,55 +66,55 @@ import { SITE } from '../data/site';
 </BaseLayout>
 
 <style>
-  .page-hero {
-    padding-block: clamp(3rem, 7vw, 5rem) clamp(1rem, 3vw, 2rem);
-    background:
-      radial-gradient(900px 380px at 85% -20%, var(--bg-tint), transparent 60%),
-      var(--white);
+  .eyebrow {
+    font-family: var(--font-head);
+    font-weight: 700; font-size: 13px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--blue-bright);
+    margin-bottom: 1.2rem; display: block;
   }
-  .page-hero .lead { margin-top: 0.5rem; }
+  h1, h2 { font-family: var(--font-head); color: var(--navy); letter-spacing: -0.02em; margin: 0; }
 
-  .contact-grid { display: grid; gap: 2.5rem; align-items: start; }
-  .info-block { margin-bottom: 1.8rem; }
-  .info-block h3 {
-    font-size: 0.8rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--blue-bright);
-    margin-bottom: 0.4rem;
+  .contact {
+    max-width: var(--maxw); margin: 0 auto; padding: 5.5rem 2rem 6rem;
+    display: grid; grid-template-columns: 1fr; gap: 3.5rem;
   }
-  .info-block a { color: var(--ink); font-size: 1.05rem; }
-  .info-block a:hover { color: var(--blue-bright); }
-  .hours { list-style: none; padding: 0; margin: 0; max-width: 320px; }
-  .hours li {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.3rem 0;
-    border-bottom: 1px dashed var(--line);
-  }
-  .hours span:first-child { color: var(--muted); }
+  .contact h1 { font-weight: 800; font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1.05; margin-bottom: 1.6rem; }
+  .contact .lead { font-size: 18px; line-height: 1.65; color: var(--muted); max-width: 48ch; margin: 0 0 2.75rem; }
 
-  .book-panel {
-    background: var(--bg-soft);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 2.2rem;
-    box-shadow: var(--shadow-sm);
+  .details { display: flex; flex-direction: column; gap: 1.75rem; margin-bottom: 2.75rem; }
+  .label {
+    font-family: var(--font-head); font-weight: 700; font-size: 12.5px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--steel); margin-bottom: 0.5rem;
   }
-  .book-panel p { color: var(--muted); }
-  .book-panel .btn { margin: 0.6rem 0 1rem; }
-  .panel-note { font-size: 0.95rem; }
+  .detail > a { color: var(--navy); font-size: 17px; font-weight: 600; }
+  .detail > a:hover { color: var(--blue-bright); }
+  .hours { display: flex; flex-direction: column; gap: 0.3rem; }
+  .hour-row { display: flex; justify-content: space-between; max-width: 280px; font-size: 15px; color: var(--muted); }
 
-  @media (min-width: 860px) {
-    .contact-grid { grid-template-columns: 1fr 0.9fr; gap: 3.5rem; }
+  .form-panel { background: var(--bg-soft); border: 1px solid var(--line); padding: 2.5rem; }
+  .form-panel h2 { font-weight: 700; font-size: 20px; margin-bottom: 0.4rem; }
+  .form-note { font-size: 14.5px; color: var(--muted); margin: 0 0 1.75rem; }
+  .contact-form { display: flex; flex-direction: column; gap: 1.1rem; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .hp { display: none; }
+  .field {
+    font-family: var(--font-body); font-size: 15px; padding: 0.8rem 0.9rem;
+    border: 1px solid #d5d1c4; border-radius: var(--radius); background: var(--bg);
+    color: var(--ink); width: 100%;
+  }
+  .field:focus { outline: 2px solid var(--blue-bright); outline-offset: 1px; }
+  textarea.field { resize: vertical; }
+  .send {
+    font-family: var(--font-head); font-weight: 700; font-size: 15px;
+    color: var(--bg); background: var(--navy); padding: 0.9rem 1.75rem;
+    border: none; border-radius: var(--radius); cursor: pointer; transition: background 180ms ease;
+  }
+  .send:hover { background: #0d1733; }
+
+  @media (min-width: 820px) {
+    .contact { grid-template-columns: 1fr 1fr; gap: 4.5rem; }
   }
 
-  .map-section { line-height: 0; }
-  .map-section iframe {
-    width: 100%;
-    height: 420px;
-    border: 0;
-    border-top: 1px solid var(--line);
-  }
+  .map-wrap { max-width: var(--maxw); margin: 0 auto 6rem; padding: 0 2rem; line-height: 0; }
+  .map-wrap iframe { width: 100%; height: 380px; border: 0; border: 1px solid var(--line); }
 </style>

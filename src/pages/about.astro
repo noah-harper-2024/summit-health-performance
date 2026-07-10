@@ -2,192 +2,110 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BookNow from '../components/BookNow.astro';
 
-const values = [
-  { title: 'Root-cause first', body: 'We dig past the symptoms to find why pain keeps showing up — then fix it for good.' },
-  { title: 'One-on-one care', body: 'Every visit is doctor-led and built around you. No conveyor belts, no rushing.' },
-  { title: 'Performance minded', body: 'Care designed not just to get you out of pain, but to help you move and perform better than before.' },
-  { title: 'Education that lasts', body: 'You leave with the knowledge and tools to keep yourself healthy between visits.' },
+const steps = [
+  { num: '01', title: 'Assess', desc: 'A full movement and history review to find what’s actually driving the problem.' },
+  { num: '02', title: 'Adjust', desc: 'Hands-on chiropractic care targeted at the joints and tissue that need it most.' },
+  { num: '03', title: 'Rebuild', desc: 'A movement plan that restores capacity so the problem doesn’t just come back.' },
 ];
 ---
 
-<BaseLayout title="About" description="Meet Dr. Seth Graham and learn how Summit Health & Performance helps active adults and youth athletes in Huntsville move, train, and compete at their best.">
-  <section class="page-hero">
-    <div class="container">
-      <span class="eyebrow">About Summit</span>
-      <h1>Built for people who refuse to slow down</h1>
-      <p class="lead">
-        Summit Health &amp; Performance is a sports chiropractic clinic in Huntsville, Alabama,
-        founded on a simple belief: you shouldn't have to live with pain to keep doing what you love.
-      </p>
+<BaseLayout title="About" description="Meet Dr. Seth Graham and learn how Summit Health & Performance builds care around the root cause — not the symptom — for active adults and youth athletes in Huntsville, AL.">
+  <section class="intro">
+    <div class="eyebrow">About Summit</div>
+    <h1>Care built around the root cause, not the symptom.</h1>
+    <p class="lead">
+      Summit Health &amp; Performance is a sports chiropractic clinic in Huntsville, AL — founded
+      on the idea that lasting relief comes from fixing what's actually wrong, not chasing pain
+      around the body.
+    </p>
+  </section>
+
+  <section class="bio">
+    <figure class="bio-photo">
+      <img src="/images/photos/dr-graham-headshot.jpg" alt="Dr. Seth Graham" width="431" height="618" />
+    </figure>
+    <div class="bio-copy">
+      <div class="eyebrow">Dr. Seth Graham</div>
+      <h2>Sports chiropractor, movement coach</h2>
+      <p>Dr. Graham built Summit around a simple frustration: too many active people get told to rest, stretch, and wait — without ever learning why the pain showed up in the first place.</p>
+      <p>His approach pairs hands-on chiropractic care with a real movement assessment, so every plan is built around your body, your sport, and your goals — not a generic protocol.</p>
+      <p>Outside the clinic, he trains like his patients do — which is exactly why he understands what it takes to get back to it.</p>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container about-grid">
-      <figure class="about-photo">
-        <img
-          src="/images/photos/dr-graham-headshot.jpg"
-          alt="Dr. Seth Graham, DC, CCSP"
-          width="431"
-          height="618"
-        />
-        <figcaption>
-          <span>Dr. Seth Graham</span>
-          <small>DC, CCSP · Founder &amp; Sports Chiropractor</small>
-        </figcaption>
-      </figure>
-      <div class="about-bio">
-        <span class="eyebrow">Meet Dr. Seth Graham</span>
-        <h2>From the field to the table</h2>
-        <p>
-          Dr. Seth Graham is an Alabama native who grew up in Dothan and Athens. His love of sport
-          and movement led him to the University of Montevallo, where he earned an undergraduate
-          degree in Exercise Science with a specialization in Health Sciences, before completing
-          his Doctor of Chiropractic at Logan University.
-        </p>
-        <p>
-          Over the years he has worked alongside CrossFit Games athletes, competitive gymnasts,
-          golfers, baseball players of every level, and Olympic-caliber competitors — helping them
-          stay healthy, recover from injury, and keep performing when it matters most. He brings
-          that same standard of care to every patient who walks through the door, whether you're a
-          weekend runner, a busy parent, or a youth athlete just getting started.
-        </p>
-        <p>
-          His philosophy is straightforward: identify the true source of the problem, treat it with
-          skilled hands-on care and intelligent rehabilitation, and equip you with the tools to stay
-          strong and mobile for the long haul.
-        </p>
-        <BookNow size="lg" />
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="section-head text-center mx-auto">
-        <span class="eyebrow">Inside Summit</span>
-        <h2>Real care, real results</h2>
-      </div>
-      <div class="gallery">
-        <figure class="gallery-item gallery-item--tall">
-          <img src="/images/photos/clinic-treatment.jpg" alt="Dr. Graham performing a chiropractic adjustment" width="306" height="409" loading="lazy" />
-        </figure>
-        <figure class="gallery-item">
-          <img src="/images/photos/athletic-rehab.jpg" alt="Athletic rehabilitation training in the clinic gym" width="206" height="181" loading="lazy" />
-        </figure>
-        <figure class="gallery-item">
-          <img src="/images/photos/cupping-therapy.jpg" alt="Cupping therapy treatment" width="206" height="202" loading="lazy" />
-        </figure>
-        <figure class="gallery-item">
-          <img src="/images/photos/movement-assessment.jpg" alt="Movement and squat assessment" width="204" height="201" loading="lazy" />
-        </figure>
-        <figure class="gallery-item">
-          <img src="/images/photos/dry-needling.jpg" alt="Dry needling treatment" width="206" height="181" loading="lazy" />
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--soft">
-    <div class="container">
-      <div class="section-head text-center mx-auto">
-        <span class="eyebrow">What We Stand For</span>
-        <h2>How we do things at Summit</h2>
-      </div>
-      <div class="grid grid--2">
-        {values.map((v) => (
-          <article class="card value-card">
-            <h3>{v.title}</h3>
-            <p>{v.body}</p>
-          </article>
+  <section class="how">
+    <div class="how-inner">
+      <h2>How we work</h2>
+      <div class="steps">
+        {steps.map((s) => (
+          <div class="step">
+            <div class="step-num">{s.num}</div>
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+          </div>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section section--navy">
-    <div class="container text-center cta-narrow">
-      <h2>Ready to reach your summit?</h2>
-      <p class="lead mx-auto">
-        Book your first visit online and let's build a plan to get you moving better than ever.
-      </p>
+  <section class="assess">
+    <figure class="assess-photo">
+      <img src="/images/photos/movement-assessment.jpg" alt="Movement assessment at Summit Health & Performance" width="204" height="201" loading="lazy" />
+    </figure>
+    <p>Every plan starts on the table with a movement assessment — how you squat, rotate, and load — so treatment targets the actual source, not just where it hurts today.</p>
+  </section>
+
+  <section class="cta">
+    <div class="cta-inner">
+      <h2>Let's find your root cause.</h2>
       <BookNow variant="on-navy" size="lg" />
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .page-hero {
-    padding-block: clamp(3rem, 7vw, 5rem) clamp(1rem, 3vw, 2rem);
-    background:
-      radial-gradient(900px 380px at 85% -20%, var(--bg-tint), transparent 60%),
-      var(--white);
+  .eyebrow {
+    font-family: var(--font-head);
+    font-weight: 700; font-size: 13px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--blue-bright);
+    margin-bottom: 1.2rem; display: block;
   }
-  .page-hero .lead { margin-top: 0.5rem; }
+  h1, h2 { font-family: var(--font-head); color: var(--navy); letter-spacing: -0.02em; margin: 0; }
 
-  .about-grid { display: grid; gap: 3rem; align-items: start; }
-  .about-photo {
-    margin: 0;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    background: var(--navy);
-    position: sticky;
-    top: 100px;
-  }
-  .about-photo img {
-    width: 100%;
-    height: auto;
-    display: block;
-    aspect-ratio: 431 / 560;
-    object-fit: cover;
-    object-position: center top;
-  }
-  .about-photo figcaption {
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    padding: 1.8rem 1.4rem 1.1rem;
-    background: linear-gradient(to top, rgba(22, 35, 77, 0.92), rgba(22, 35, 77, 0));
-    color: var(--white);
-    text-align: center;
-  }
-  .about-photo figcaption span { display: block; font-family: var(--font-head); font-weight: 700; font-size: 1.35rem; }
-  .about-photo figcaption small { color: var(--steel-light); }
-  .about-bio .btn { margin-top: 0.6rem; }
-  @media (min-width: 880px) {
-    .about-grid { grid-template-columns: 0.8fr 1.2fr; gap: 3.5rem; }
-  }
+  .intro { max-width: var(--maxw); margin: 0 auto; padding: 5.5rem 2rem 0; }
+  .intro h1 { font-weight: 800; font-size: clamp(2.4rem, 4.4vw, 4rem); line-height: 1.04; max-width: 16ch; margin-bottom: 1.6rem; }
+  .intro .lead { font-size: 19px; line-height: 1.65; color: var(--muted); max-width: 60ch; margin: 0; }
 
-  .section-head { max-width: 50ch; margin-bottom: 2.5rem; }
+  .bio {
+    max-width: var(--maxw); margin: 0 auto; padding: 3.5rem 2rem 6rem;
+    display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center;
+  }
+  .bio-photo { margin: 0; background: var(--bg-soft); padding: 1.1rem; border: 1px solid var(--line); max-width: 300px; }
+  .bio-photo img { width: 100%; height: auto; object-fit: cover; display: block; }
+  .bio-copy h2 { font-weight: 800; font-size: clamp(1.8rem, 3vw, 2.4rem); letter-spacing: -0.01em; margin-bottom: 1.4rem; }
+  .bio-copy p { font-size: 18px; line-height: 1.7; color: var(--muted); max-width: 56ch; margin: 0 0 1.25rem; }
+  @media (min-width: 860px) { .bio { grid-template-columns: 0.85fr 1.15fr; gap: 4rem; } }
 
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-  .gallery-item {
-    margin: 0;
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    background: var(--bg-tint);
-  }
-  .gallery-item img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    aspect-ratio: 1 / 1;
-    transition: transform var(--transition);
-  }
-  .gallery-item:hover img { transform: scale(1.04); }
-  .gallery-item--tall { grid-row: span 2; }
-  .gallery-item--tall img { aspect-ratio: 3 / 4; }
-  @media (min-width: 720px) {
-    .gallery { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; }
-  }
+  .how { background: var(--bg-soft); padding: 6rem 0; }
+  .how-inner { max-width: var(--maxw); margin: 0 auto; padding: 0 2rem; }
+  .how h2 { font-weight: 800; font-size: clamp(1.8rem, 3vw, 2.3rem); letter-spacing: -0.01em; margin-bottom: 3rem; }
+  .steps { display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .step { background: var(--bg); padding: 2.5rem 2.25rem; display: flex; flex-direction: column; gap: 0.9rem; }
+  .step-num { font-family: var(--font-head); font-weight: 800; font-size: 15px; color: var(--blue-bright); }
+  .step h3 { font-family: var(--font-head); font-weight: 700; font-size: 20px; color: var(--navy); margin: 0; }
+  .step p { font-size: 15px; line-height: 1.65; color: var(--muted); margin: 0; }
+  @media (min-width: 780px) { .steps { grid-template-columns: repeat(3, 1fr); } }
 
-  .value-card h3 { color: var(--blue); }
-  .cta-narrow { max-width: 54ch; margin-inline: auto; }
-  .cta-narrow .lead { margin-bottom: 1.8rem; }
+  .assess {
+    max-width: var(--maxw); margin: 0 auto; padding: 6rem 2rem;
+    display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center;
+  }
+  .assess-photo { margin: 0; background: var(--bg-soft); padding: 1.1rem; border: 1px solid var(--line); max-width: 280px; }
+  .assess-photo img { width: 100%; height: auto; object-fit: cover; display: block; }
+  .assess p { font-size: 18px; line-height: 1.7; color: var(--muted); margin: 0; max-width: 48ch; }
+  @media (min-width: 780px) { .assess { grid-template-columns: 1fr 1fr; gap: 3.5rem; } }
+
+  .cta { background: var(--navy); padding: 6rem 0; }
+  .cta-inner { max-width: 900px; margin: 0 auto; padding: 0 2rem; text-align: center; }
+  .cta h2 { font-weight: 800; font-size: clamp(2rem, 4vw, 3rem); color: var(--bg); margin-bottom: 2rem; }
 </style>
